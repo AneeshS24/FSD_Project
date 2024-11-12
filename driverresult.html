@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results - MITPOOL</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            font-family: 'Arial', sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+            color: #0073e6;
+            margin-bottom: 20px;
+        }
+
+        .table-container {
+            width: 90%;
+            margin: 0 auto;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table thead {
+            background-color: #0073e6;
+            color: white;
+        }
+
+        table th, table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        table th {
+            font-size: 1.1em;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #ff6f61;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #ff4530;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Available Rides</h1>
+
+    <div class="table-container">
+        <table id="providerTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Location</th>
+                    <th>Vehicle Type</th>
+                    <th>Vehicle Number</th>
+                    <th>Date</th>
+                    <th>Departure Time</th>
+                    <th>Pickup Location</th>
+                    <th>Seats Available</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dynamic content will be inserted here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+    // Fetch provider data from the server
+    fetch('/getProviderRides')
+        .then(response => response.json())
+        .then(data => {
+            const tableBody = document.querySelector('#providerTable tbody');
+
+            // Loop through the fetched data and populate the table
+            data.forEach(provider => {
+                const row = document.createElement('tr');
+
+                // Check if provider has an _id, if not log a warning
+                if (!provider._id) {
+                    console.warn('Provider ID is missing:', provider);
+                }
+
+                // Create table cells and add data
+                row.innerHTML = `
+                    <td>${provider.name}</td>
+                    <td>${provider.location}</td>
+                    <td>${provider.vehicle_type}</td>
+                    <td>${provider.veh_num}</td>
+                    <td>${provider.date}</td>
+                    <td>${provider.departureTime}</td>
+                    <td>${provider.pickupLocation}</td>
+                    <td>${provider.seatsAvailable}</td>
+                `;
+
+                // Append the row to the table body
+                tableBody.appendChild(row);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching provider data:', error);
+        });
+
+    // Function to handle the Book Now button click
+    function bookNow(providerId) {
+        // Redirect to a booking page or send a booking request
+        window.location.href = `/bookRide?providerId=${providerId}`;
+    }
+</script>
+
+    
+
+</body>
+</html>

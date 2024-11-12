@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Provider Information - MITPOOL</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #0073e6;
+            margin-bottom: 20px;
+        }
+
+        .info-section {
+            margin-bottom: 15px;
+        }
+
+        .info-section strong {
+            display: block;
+            font-size: 1.1em;
+            color: #333;
+        }
+
+        .cta-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #ff6f61;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #ff4530;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Driver Information</h1>
+        
+        <div class="info-section">
+            <strong>Name:</strong>
+            <span id="providerName"></span>
+        </div>
+        
+        <div class="info-section">
+            <strong>Location:</strong>
+            <span id="providerLocation"></span>
+        </div>
+
+        <div class="info-section">
+            <strong>Vehicle Type:</strong>
+            <span id="vehicleType"></span>
+        </div>
+
+        <div class="info-section">
+            <strong>Vehicle Number:</strong>
+            <span id="vehicleNumber"></span>
+        </div>
+
+        <div class="info-section">
+            <strong>Date:</strong>
+            <span id="date"></span>
+        </div>
+
+        <div class="info-section">
+            <strong>Departure Time:</strong>
+            <span id="departureTime"></span>
+        </div>
+
+        <div class="info-section">
+            <strong>Pickup Location:</strong>
+            <span id="pickupLocation"></span>
+        </div>
+
+        <div class="info-section">
+            <strong>Seats Available:</strong>
+            <span id="seatsAvailable"></span>
+        </div>
+
+        <!-- Book Now Button -->
+        <a href="#" class="cta-button" id="confirmBooking">Confirm Booking</a>
+    </div>
+
+    <script>
+        // Get the provider ID from the URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const providerId = urlParams.get('providerId'); // Extract providerId from the query parameter
+    
+        // Fetch provider data from the existing server endpoint
+        fetch(`/getProviderInfo/${providerId}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(provider => {
+                // Populate the page with provider data
+                document.getElementById('providerName').textContent = provider.name;
+                document.getElementById('providerLocation').textContent = provider.location;
+                document.getElementById('vehicleType').textContent = provider.vehicle_type;
+                document.getElementById('vehicleNumber').textContent = provider.veh_num;
+                document.getElementById('date').textContent = new Date(provider.date).toLocaleDateString();
+                document.getElementById('departureTime').textContent = provider.departureTime;
+                document.getElementById('pickupLocation').textContent = provider.pickupLocation;
+                document.getElementById('seatsAvailable').textContent = provider.seatsAvailable;
+    
+                // Update the Confirm Booking button link
+                document.getElementById('confirmBooking').href = `/bookRide/${providerId}`;
+            })
+            .catch(error => {
+                console.error('Error fetching provider information:', error);
+                document.querySelector('.container').innerHTML = '<p>Error loading provider information. Please try again later.</p>';
+            });
+    </script>
+</body>
+</html>

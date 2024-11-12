@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find a Ride - MIT-POOL</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            background-image: url('https://static.vecteezy.com/system/resources/previews/000/145/282/non_2x/carpool-vector-background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin: 0;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            color: #761313;
+        }
+
+        header {
+            background-color: rgba(0, 115, 230, 0.9);
+            padding: 10px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo img {
+            height: 50px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1em;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #ff6f61;
+        }
+
+        .hero {
+            background: url('https://static.vecteezy.com/system/resources/previews/000/145/282/non_2x/carpool-vector-background.jpg') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .hero h1 {
+            font-size: 4em;
+            margin-bottom: 10px;
+            z-index: 1;
+        }
+
+        .hero p {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            z-index: 1;
+        }
+
+        .cta-button {
+            padding: 15px 30px;
+            background-color: #ff6f61;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.5em;
+            z-index: 1;
+            transition: background-color 0.3s;
+            margin: 0 10px;
+        }
+
+        .cta-button:hover {
+            background-color: #ff4530;
+        }
+
+        .find-ride-form {
+            padding: 70px 20px;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+
+        .find-ride-form h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .find-ride-form p {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .find-ride-form form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .find-ride-form label {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+
+        .find-ride-form input {
+            padding: 10px;
+            font-size: 1em;
+            margin: 10px 0;
+            width: 80%;
+            max-width: 400px;
+        }
+
+        .find-ride-form button {
+            padding: 10px 20px;
+            background-color: #ff6f61;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .find-ride-form button:hover {
+            background-color: #ff4530;
+        }
+
+        .ride-results {
+            padding: 20px;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+
+        .ride-results h3 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .ride-results ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .ride-results li {
+            background: #fff;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        /* Table styles */
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ddd;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #ff6f61;
+            color: #fff;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        .footer-links a {
+            color: #ff6f61;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1.1em;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        .social-media img {
+            height: 40px;
+            margin: 0 10px;
+        }
+
+        footer p {
+            margin-top: 20px;
+            font-size: 1em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Find a Ride Form -->
+    <section class="find-ride-form">
+        <h2>Find a Ride</h2>
+        <p>Search for available rides based on your location and destination, or view all available rides.</p>
+        <form id="find-ride-form">
+
+            <label for="provider_location">Your Location:</label>
+            <input type="text" id="provider_location" name="provider_location" required>
+
+            <label for="dateofride">Date:</label>
+            <input type="date" id="dateofride" name="date" required>
+
+            <label for="seatsreq">Seats Requested</label>
+            <input type="number" id="seatsreq" name="seatsreq" min="1" required>
+
+            <button type="submit">Search</button>
+        </form>
+        <br>
+        <!-- New button to show all rides -->
+        <button id="show-all-rides">Show All Rides</button>
+
+        <!-- Table to display filtered rides -->
+        <div id="ride-results" class="ride-results">
+            <h3>Available Rides:</h3>
+            <table id="rides-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Location</th>
+                        <th>Pickup</th>
+                        <th>Date</th>
+                        <th>Seats Available</th>
+                        <th>Seats Requested</th>
+                        <th>Book Now</th>
+                    </tr>
+                </thead>
+                <tbody id="rides-list"></tbody>
+            </table>
+        </div>
+    </section>
+
+    <script>
+        // Event listener for search form submission
+        // Event listener for search form submission
+        document.getElementById('find-ride-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const location = document.getElementById('provider_location').value;
+            const date = document.getElementById('dateofride').value;
+            const seatsRequested = parseInt(document.getElementById('seatsreq').value);
+
+            fetch(`/findride?location=${encodeURIComponent(location)}&date=${encodeURIComponent(date)}&seatsRequested=${encodeURIComponent(seatsRequested)}`)
+                .then(response => response.json())
+                .then(data => {
+                    const ridesList = document.getElementById('rides-list');
+                    ridesList.innerHTML = '';
+
+                    if (data.length === 0) {
+                        ridesList.innerHTML = '<tr><td colspan="6">No rides found.</td></tr>';
+                    } else {
+                        // Filter rides by seats requested
+                        const filteredRides = data.filter(ride => ride.seatsAvailable >= seatsRequested);
+
+                        if (filteredRides.length === 0) {
+                            ridesList.innerHTML = '<tr><td colspan="6">No rides available with the requested seats.</td></tr>';
+                        } else {
+                            // Assuming this is inside the code where you create the table rows for each ride
+                            filteredRides.forEach(ride => {
+                                const row = document.createElement('tr');
+                                row.innerHTML = `
+                                                <td>${ride.name}</td>
+                                                <td>${ride.location}</td>
+                                                <td>${ride.pickupLocation}</td>
+                                                <td>${ride.date}</td>
+                                                <td>${ride.seatsAvailable}</td>
+                                                <td>${seatsRequested}</td>
+                                                <td><button onclick="bookRide('${ride._id}', ${ride.seatsAvailable}, ${seatsRequested})">Book Now</button></td>
+                                            `;
+                                ridesList.appendChild(row);
+                            });
+
+
+
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching rides:', error);
+                });
+        });
+
+        function bookRide(rideId, seatsAvailable, seatsRequested) {
+            const updatedSeatsAvailable = seatsAvailable - seatsRequested;
+
+            fetch('/updateSeats', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ rideId, updatedSeatsAvailable })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message === 'Seats updated successfully') {
+                        // Redirect to finalinfo.html with rideId as a query parameter
+                        window.location.href = `finalinfo.html?rideId=${rideId}`;
+                    } else {
+                        alert(data.message || 'Failed to book the ride.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error updating seats:', error);
+                    alert('An error occurred. Please try again.');
+                });
+        }
+
+
+
+
+        // Event listener for the "Show All Rides" button
+        document.getElementById('show-all-rides').addEventListener('click', function () {
+            // Redirect to the 'driverresult.html' page
+            window.location.href = 'driverresult.html';  // Change this to the correct path if necessary
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIT-POOL - Sign Up</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            background-image: url('https://adda.io/blog/wp-content/uploads/2015/10/carpooling-blog-pshop.jpg');
+            background-size: cover;
+            background-attachment: fixed; /* Keep background fixed on scroll */
+            background-position: center;
+            background-repeat: no-repeat;
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-y: auto; /* Enable vertical scroll */
+        }
+
+        .auth-container {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 50px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+            min-height: 600px; /* Set minimum height */
+            margin: 20px 0; /* Add vertical margin */
+        }
+        .auth-container h1 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: #761313;
+        }
+
+        .auth-option {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 40px;
+        }
+
+        .auth-option button {
+            background-color: #0073e6;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+            cursor: pointer;
+        }
+
+        .auth-option button:hover {
+            background-color: #ff6f61;
+            transform: scale(1.05);
+        }
+
+        .form-container {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .form-container.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 1.1em;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .submit-button {
+            background-color: #ff6f61;
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .submit-button:hover {
+            background-color: #ff4530;
+            transform: scale(1.05);
+        }
+
+        .switch-form {
+            margin-top: 15px;
+            font-size: 1em;
+            color: #0073e6;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <h1>Sign Up</h1>
+
+        <!-- User Role Selection -->
+        <div class="auth-option">
+            <button id="provider-btn">Sign Up as Provider</button>
+            <button id="receiver-btn">Sign Up as Ride Finder</button>
+        </div>
+
+        <!-- Provider Form -->
+        <div id="provider-form" class="form-container">
+            <form action="/postProvider" method="post">
+            <form id="providerForm">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="provider-name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="provider-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="provider-pass" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="contact">Contact Number:</label>
+                    <input type="text" id="provider-contact" name="contact" required>
+                </div>
+                <div class="form-group">
+                    <label for="location">Location:</label>
+                    <input type="text" id="provider-location" name="location" required>
+                </div>
+                <div class="form-group">
+                    <label for="landmark">Closest Landmark:</label>
+                    <input type="text" id="provider-landmark" name="closest_landmark" required>
+                </div>
+                <div class="form-group">
+                    <label for="vehicle_type">Vehicle Type:</label>
+                    <input type="text" id="provider-vehicle_type" name="vehicle_type" required>
+                </div>
+                <div class="form-group">
+                    <label for="veh_num">Vehicle Number:</label>
+                    <input type="text" id="pro_veh_num" name="veh_num" required>
+                </div>
+                <button type="submit" class="submit-button">Submit</button>
+            </form>
+        </form>
+            <p class="switch-form" id="switch-to-receiver">Switch to Receiver</p>
+        </div>
+
+        <!-- Receiver Form -->
+        <div id="receiver-form" class="form-container">
+            <form id="receiverForm" action="/postReceiver" method="post">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="receiver-name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="receiver-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="reciever-pass" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="contact">Contact Number:</label>
+                    <input type="text" id="receiver-contact" name="contact" required>
+                </div>
+                <div class="form-group">
+                    <label for="location">Location:</label>
+                    <input type="text" id="receiver-location" name="location" required>
+                </div>
+                <div class="form-group">
+                    <label for="landmark">Closest Landmark:</label>
+                    <input type="text" id="receiver-landmark" name="closest_landmark" required>
+                </div>
+                <div class="form-group">
+                    <label for="vehicle_type">Vehicle Type Preferred:</label>
+                    <input type="text" id="vehicle_type" name="vehicle_type" required>
+                </div>                
+                
+                <button type="submit" class="submit-button">Submit</button>
+            </form>
+            <p class="switch-form" id="switch-to-provider">Switch to Provider</p>
+        </div>
+
+
+    <script>
+        const providerBtn = document.getElementById('provider-btn');
+        const receiverBtn = document.getElementById('receiver-btn');
+        const providerForm = document.getElementById('provider-form');
+        const receiverForm = document.getElementById('receiver-form');
+        const switchToReceiver = document.getElementById('switch-to-receiver');
+        const switchToProvider = document.getElementById('switch-to-provider');
+
+        // Initial setup: Hide receiver form
+        receiverForm.classList.remove('active'); // Ensure the receiver form is hidden initially
+
+        providerBtn.addEventListener('click', () => {
+            providerForm.classList.add('active');
+            receiverForm.classList.remove('active');
+        });
+
+        receiverBtn.addEventListener('click', () => {
+            receiverForm.classList.add('active');
+            providerForm.classList.remove('active');
+        });
+
+        switchToReceiver.addEventListener('click', () => {
+            receiverForm.classList.add('active');
+            providerForm.classList.remove('active');
+        });
+
+        switchToProvider.addEventListener('click', () => {
+            providerForm.classList.add('active');
+            receiverForm.classList.remove('active');
+        });
+
+        // AJAX Submission for Provider Form
+        document.getElementById('providerForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = {
+                name: document.getElementById('provider-name').value,
+                email: document.getElementById('provider-email').value,
+                contact: document.getElementById('provider-contact').value,
+                location: document.getElementById('provider-location').value,
+                closest_landmark: document.getElementById('provider-landmark').value,
+                destination: document.getElementById('provider-destination').value,
+                vehicle_type: document.getElementById('vehicle_type').value,
+                seats_available: document.getElementById('provider-seats').value,
+            };
+            console.log(formData);
+
+            fetch('/postProvider', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);  // Show success message
+                if (data.success) {
+                    window.location.href = '/';  // Redirect to homepage
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+
+        // AJAX Submission for Receiver Form
+        document.getElementById('receiverForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const formData = {
+            name: document.getElementById('receiver-name').value,
+            email: document.getElementById('receiver-email').value,
+            contact: document.getElementById('receiver-contact').value,
+            location: document.getElementById('receiver-location').value,
+            closest_landmark: document.getElementById('receiver-landmark').value,
+            destination: document.getElementById('receiver-destination').value,
+            vehicle_type: document.getElementById('vehicle_type').value,
+            seats_requested: document.getElementById('receiver-seats_requested').value,
+        };
+
+        fetch('/postReceiver', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);  // Show success message
+            if (data.success) {
+                window.location.href = '/';  // Redirect to homepage
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
+
+    </script>
+</body>
+</html>

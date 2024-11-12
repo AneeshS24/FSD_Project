@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIT-POOL - Sign Up & Sign In</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            background-image: url('https://adda.io/blog/wp-content/uploads/2015/10/carpooling-blog-pshop.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin: 0;
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .auth-container {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 50px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .auth-container h1 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: #761313;
+        }
+
+        .auth-option {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 40px;
+        }
+
+        .auth-option button {
+            background-color: #0073e6;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+            cursor: pointer;
+        }
+
+        .auth-option button:hover {
+            background-color: #ff6f61;
+            transform: scale(1.05);
+        }
+
+        .form-container {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .form-container.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 1.1em;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .submit-button {
+            background-color: #ff6f61;
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .submit-button:hover {
+            background-color: #ff4530;
+            transform: scale(1.05);
+        }
+
+        .switch-form {
+            margin-top: 15px;
+            font-size: 1em;
+            color: #0073e6;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="auth-container">
+        <h1>Welcome to MITPOOL</h1>
+
+        <!-- User Role Selection -->
+        <div class="auth-option">
+            <button id="provider-btn">Sign In as Provider</button>
+            <button id="receiver-btn">Sign In as Receiver</button>
+        </div>
+
+        <!-- Provider Form -->
+        <!-- Provider Form -->
+        <div id="provider-form" class="form-container">
+            <form action="/login" method="POST">
+                <input type="hidden" name="role" value="provider">
+                <div class="form-group">
+                    <label for="provider-email">Email</label>
+                    <input type="email" id="provider-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="provider-password">Password</label>
+                    <input type="password" id="provider-password" name="password" required>
+                </div>
+                <button type="submit" class="submit-button">Sign In as Provider</button>
+            </form>
+            <p class="switch-form" id="switch-to-receiver">Switch to Receiver</p>
+        </div>
+
+        <!-- Receiver Form -->
+        <div id="receiver-form" class="form-container">
+            <form action="/login" method="POST">
+                <input type="hidden" name="role" value="receiver">
+                <div class="form-group">
+                    <label for="receiver-email">Email</label>
+                    <input type="email" id="receiver-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="receiver-password">Password</label>
+                    <input type="password" id="receiver-password" name="password" required>
+                </div>
+                <button type="submit" class="submit-button">Sign In as Receiver</button>
+            </form>
+            <p class="switch-form" id="switch-to-provider">Switch to Provider</p>
+        </div>
+
+    </div>
+
+    <script>
+        // JavaScript to toggle between provider and receiver forms
+        const providerBtn = document.getElementById('provider-btn');
+        const receiverBtn = document.getElementById('receiver-btn');
+        const providerForm = document.getElementById('provider-form');
+        const receiverForm = document.getElementById('receiver-form');
+        const switchToReceiver = document.getElementById('switch-to-receiver');
+        const switchToProvider = document.getElementById('switch-to-provider');
+
+        providerBtn.addEventListener('click', () => {
+            providerForm.classList.add('active');
+            receiverForm.classList.remove('active');
+        });
+
+        receiverBtn.addEventListener('click', () => {
+            receiverForm.classList.add('active');
+            providerForm.classList.remove('active');
+        });
+
+        switchToReceiver.addEventListener('click', () => {
+            receiverForm.classList.add('active');
+            providerForm.classList.remove('active');
+        });
+
+        switchToProvider.addEventListener('click', () => {
+            providerForm.classList.add('active');
+            receiverForm.classList.remove('active');
+        });
+    </script>
+</body>
+
+</html>
